@@ -76,16 +76,31 @@ class RestaurantTest {
 
     //<<<<<<<<<<<<<<<<<<<<<<<Part3 Feature - TDD>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     @Test
-    public void Selecting_itmes_from_menu_should_return_total_order_price(){
+    public void selecting_items_from_menu_should_return_total_order_price() throws itemNotFoundException {
 
-        restaurant.addToMenu("Veg Burger", 115);
+        restaurant.addToMenu("Veg Burger", 121);
+        restaurant.addToMenu("Cheese Pizza", 189);
+        restaurant.addToMenu("Chocolate Pastry", 69);
+        List<String> selectedItems = new ArrayList<String>();
+        selectedItems.add("Sweet corn soup");
+        selectedItems.add("Veg Burger");
+        selectedItems.add("Chocolate Pastry");
+        int orderPrice = restaurant.orderPrice(selectedItems);
+        assertEquals(orderPrice, 309);
+    }
+
+    @Test
+    public void selecting_items_not_in_menu_should_should_throw_exception() {
+
+        restaurant.addToMenu("Veg Burger", 121);
         restaurant.addToMenu("Cheese Pizza", 189);
         restaurant.addToMenu("Chocolate Pastry", 79);
         List<String> selectedItems = new ArrayList<String>();
-        selectedItems.add("Veg Burger");
-        selectedItems.add("Vegetable lasagne");
-        int orderPrice = restaurant.orderPrice(selectedItems);
-        assertEquals(orderPrice, 384);
+        selectedItems.add("Pizza");
+        selectedItems.add("Chocolate Pastry");
+        assertThrows(itemNotFoundException.class,
+                ()->restaurant.orderPrice(selectedItems));
     }
 
+    //<<<<<<<<<<<<<<<<<<<<<<<Part3 Feature - TDD>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }

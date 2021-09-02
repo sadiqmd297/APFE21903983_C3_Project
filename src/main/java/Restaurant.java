@@ -68,4 +68,19 @@ public class Restaurant {
         return name;
     }
 
+    public int orderPrice(List<String> selectedItems) throws itemNotFoundException {
+        int orderPrice = 0;
+        for (String selectedItem: selectedItems) {
+            String itemName = null;
+            for (Item menuItem: menu) {
+                if(menuItem.getName().equals(selectedItem)) {
+                    orderPrice = menuItem.getPrice() + orderPrice;
+                    itemName = selectedItem;
+                }
+            }
+            if(itemName == null)
+                throw new itemNotFoundException("Item not found with given name");
+        }
+        return orderPrice;
+    }
 }
