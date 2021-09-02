@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
@@ -70,4 +72,20 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+    //<<<<<<<<<<<<<<<<<<<<<<<Part3 Feature - TDD>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
+    public void Selecting_itmes_from_menu_should_return_total_order_price(){
+
+        restaurant.addToMenu("Veg Burger", 115);
+        restaurant.addToMenu("Cheese Pizza", 189);
+        restaurant.addToMenu("Chocolate Pastry", 79);
+        List<String> selectedItems = new ArrayList<String>();
+        selectedItems.add("Veg Burger");
+        selectedItems.add("Vegetable lasagne");
+        int orderPrice = restaurant.orderPrice(selectedItems);
+        assertEquals(orderPrice, 384);
+    }
+
 }
